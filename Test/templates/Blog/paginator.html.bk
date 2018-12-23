@@ -1,0 +1,36 @@
+
+<nav class="pagination">
+    <div class="paginator_bottom">
+        <ul>
+            {% if page_of_blogs.has_previous %}
+            <li class="paginator_left">
+                <a href="?page={{ page_of_blogs.previous_page_number }}">«</a>
+            </li>
+            {% else %}
+            <li class="paginator_left">
+                <a class="displaynone">«</a>
+            </li>
+            {% endif %} {% for page in simplify_pages %} {% if page == page_of_blogs.number %}
+            <li>
+                <a class="active" href="?page={{ page }}">{{ page }}</a>
+            </li>
+            {% else%} {% if page == '...'%}
+            <li>
+                <a class="displaynone">{{ page }}</a>
+            </li>
+            {% else %}
+            <li>
+                <a href="?page={{ page }}">{{ page }}</a>
+            </li>
+            {% endif %} {% endif %} {% endfor %} {% if page_of_blogs.has_next %}
+            <li class="paginator_right">
+                <a href="?page={{ page_of_blogs.next_page_number }}">»</a>
+            </li>
+            {% else %}
+            <li class="paginator_right">
+                <a class="displaynone">»</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

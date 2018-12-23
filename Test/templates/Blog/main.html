@@ -1,0 +1,16 @@
+{% extends 'Blog/base.html' %}
+{% load static %}
+{% block content%}
+    {% if blog_list %}
+        <!-- start 博客内容 -->
+        {% include 'Blog/blog_list.html' %}
+        <!-- end 博客内容 -->
+        <!-- start 分页 -->
+        {% include 'Blog/paginator.html' %}
+        <!-- end 分页 -->
+    {% else %}
+        <div class="wrap-content gaussian-blur border-radius">
+            <p style="padding-left: 10px;">Can't find key word (╯°Д°)╯︵┻━┻</p>
+        </div>
+    {% endif %}
+{% endblock %}

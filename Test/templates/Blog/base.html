@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="zh"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="zh"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="zh"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Concise Blog</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" crossorigin="anonymous">
+    <link rel="icon" href="{% static 'images/logo.ico'%}">
+</head>
+
+<body>
+    <a href="#" id="btn-top"></a>
+
+    <nav class="navbar navbar-expand-lg navbar-light gaussian-blur" style="overflow: visible; z-index: auto">
+        <div class="container">
+            <a href="/" class="navbar-brand">首页</a>
+            <div class="d-flex ml-auto">
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#globalNavbar"
+                    aria-controls="globalNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse" id="globalNavbar">
+                <form class="form-inline form-navbar my-2 my-lg-0 order-2" method="get" action="/search" id="search">
+                    {% csrf_token %}
+                    <input class="form-control" name="wd" type="text" placeholder="Search..." />
+                </form>
+                <ul class="navbar-nav mr-auto order-1">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" href="#" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">博客</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <div class="navbar-collapse navbar-top-collapse">
+                                <ul id="menu-top-menu" class="nav navbar-nav">
+                                    <li class="menu-item">
+                                        <a href="/type/Windows">Windows</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/type/Android">Android</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/type/Linux">Linux</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/type/Python">Python</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/type/Other">Other</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">关于</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="https://themes.getbootstrap.com/sell/">Sell themes</a>
+                    </li> -->
+                </ul>
+                <!-- <ul class="navbar-nav d-none d-lg-flex ml-2 order-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://themes.getbootstrap.com/signin/">Sign in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://themes.getbootstrap.com/my-account/">Sign up</a>
+                    </li>
+                </ul> -->
+                <!-- <ul class="navbar-nav d-lg-none">
+                    <li class="nav-item-divider"></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://themes.getbootstrap.com/signin/">Sign in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://themes.getbootstrap.com/my-account/">Sign up</a>
+                    </li>
+                </ul> -->
+            </div>
+        </div>
+    </nav>
+
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content">
+                    {% block content %} {% endblock %}
+                </main>
+                <aside class="col-md-4 sidebar">
+                    <div class="gaussian-blur border-radius">
+                        <div class="widget wid-follow">
+                            <div class="wid-header">
+                                <h5>TAGS</h5>
+                            </div>
+                            <div class="wid-content">
+                                {% for type in blog_type_list %}
+                                <a href="{% url 'blog_type_name' type %}">{{ type }}</a>
+                                {% endfor%}
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <footer class="gaussian-blur footer">
+        <div class="container">
+            <div class="">
+                <p>© 2018. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <link rel="stylesheet" href="{%static 'css/style.css'%}">
+    <script src="{% static 'js/jquery.slim.min.js' %}" crossorigin="anonymous"></script>
+    <script src="{% static 'js/popper.min.js' %}" crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}" crossorigin="anonymous"></script>
+    <!-- 
+    <script>
+        window.onload = function () {
+            var obtn = document.getElementById('btn-top'); //获取回到顶部按钮的ID
+            var clientHeight = document.documentElement.clientHeight; //获取可视区域的高度
+            var timer = null; //定义一个定时器
+            var isTop = true; //定义一个布尔值，用于判断是否到达顶部
+
+            window.onscroll = function () { //滚动条滚动事件
+
+                //获取滚动条的滚动高度
+                var osTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+                if (osTop >= clientHeight) { //如果滚动高度大于可视区域高度，则显示回到顶部按钮
+                    obtn.style.display = 'block';
+                } else { //否则隐藏
+                    obtn.style.display = 'none';
+                }
+
+                //主要用于判断当 点击回到顶部按钮后 滚动条在回滚过程中，若手动滚动滚动条，则清除定时器
+                if (!isTop) {
+
+                    clearInterval(timer);
+                }
+                isTop = false;
+
+            }
+
+            obtn.onclick = function () { //回到顶部按钮点击事件
+                //设置一个定时器
+                timer = setInterval(function () {
+                    //获取滚动条的滚动高度
+                    var osTop = document.documentElement.scrollTop || document.body.scrollTop;
+                    //用于设置速度差，产生缓动的效果
+                    var speed = Math.floor(-osTop / 6);
+                    document.documentElement.scrollTop = document.body.scrollTop = osTop + speed;
+                    isTop = true; //用于阻止滚动事件清除定时器
+                    if (osTop == 0) {
+                        clearInterval(timer);
+                    }
+                }, 30);
+            }
+        }
+    </script> -->
+</body>
+
+</html>

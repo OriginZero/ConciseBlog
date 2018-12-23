@@ -1,0 +1,30 @@
+{% load static %}
+<div class="wrap-content gaussian-blur border-radius">
+    {% for blog in blog_list %}
+    <article>
+        <div class="art-header">
+            <div class="entry-title">
+                <h4>
+                    <a href="{% url 'blog_page_pk' blog.pk %}">{{ blog.title|truncatechars:50 }}</a>
+                </h4>
+            </div>
+        </div>
+        <div class="art-cat">
+
+            <i class="fa fa-clock-o" style="cursor: default;">{{ blog.update_time }}</i>
+
+            <a href="#">
+                <i class="fa fa-user">{{ blog.author }}</i>
+            </a>
+            {% for type in blog.type_blog.all %}
+            <a href="{% url 'blog_type_name' type %}">
+                <i class="fa fa-tags">{{ type }}</i>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="art-content">
+            <p>{{ blog.content|safe|striptags|truncatechars:280 }}</p>
+        </div>
+    </article>
+    {% endfor %}
+</div>

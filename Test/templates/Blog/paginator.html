@@ -1,0 +1,10 @@
+<nav class="pagination">
+    {% if page_of_blogs.has_previous %}
+    <a class="page_left" href="?page={{ page_of_blogs.previous_page_number }}">上一页</a>
+    {% else %} {% endif %}
+    <span>第 {{ page_of_blogs.number }} 页 / 共 {{ page_of_blogs.paginator.num_pages }} 页
+    </span>
+    {% if page_of_blogs.has_next %}
+    <a class="page_right" href="?page={{ page_of_blogs.next_page_number }}">下一页</a>
+    {% else %} {% endif %}
+</nav>
